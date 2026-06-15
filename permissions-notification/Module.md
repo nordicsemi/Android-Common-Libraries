@@ -1,6 +1,6 @@
 # Module permissions-notification
 
-Common views for requesting [POST_NOTIFICATIONS][android.Manifest.permission.POST_NOTIFICATIONS] permission.
+Common views for requesting `POST_NOTIFICATIONS` permission.
 
 On Android 13+ (API 33+) the `NotificationManager` requires a permission to show notifications. 
 This module provides a wrapper which will automatically request the permission.

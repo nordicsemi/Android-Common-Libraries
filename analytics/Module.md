@@ -18,7 +18,7 @@ Read [Firebase Setup](https://firebase.google.com/docs/android/setup) for more.
 > **Note:**
 > 
 > This package requires Hilt, as it's using Dependency Injection to provide the 
-> [NordicAnalytics][no.nordicsemi.android.common.analytics.NordicAnalytics] class.
+> `NordicAnalytics` class.
 
 # Package no.nordicsemi.android.common.analytics
 

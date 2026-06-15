@@ -6,7 +6,7 @@ allowing passing typed arguments between destinations.
 > **Note:**
 >
 > This package requires Hilt, as it's using Dependency Injection to provide the 
-> [Navigator][no.nordicsemi.android.common.navigation.Navigator] class.
+> `Navigator` class.
 
 ### Deprecation
 

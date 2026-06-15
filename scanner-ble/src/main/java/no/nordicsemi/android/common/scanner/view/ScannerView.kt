@@ -29,8 +29,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@file:Suppress("unused")
-
 package no.nordicsemi.android.common.scanner.view
 
 import androidx.annotation.DrawableRes

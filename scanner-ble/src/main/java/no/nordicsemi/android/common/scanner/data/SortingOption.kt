@@ -35,7 +35,6 @@ package no.nordicsemi.android.common.scanner.data
 
 import androidx.annotation.StringRes
 import no.nordicsemi.android.common.scanner.R
-import no.nordicsemi.android.common.scanner.data.ScannedPeripheral
 
 sealed class SortingOption(
     @field:StringRes val title: Int,

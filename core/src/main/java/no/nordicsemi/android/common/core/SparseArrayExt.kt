@@ -29,9 +29,12 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+@file:Suppress("unused")
+
 package no.nordicsemi.android.common.core
 
 import android.util.SparseArray
+import androidx.core.util.size
 
 /**
  * Maps the SparseArray to a new SparseArray using the provided modifier.
@@ -42,8 +45,8 @@ import android.util.SparseArray
 fun <T, R> SparseArray<T>.map(
     modifier: (T) -> R,
 ): SparseArray<R> {
-    val newArray = SparseArray<R>(this.size())
-    for (i in 0 until this.size()) {
+    val newArray = SparseArray<R>(this.size)
+    for (i in 0 until this.size) {
         newArray[this.keyAt(i)] = modifier(this.valueAt(i))
     }
     return newArray

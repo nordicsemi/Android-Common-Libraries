@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package no.nordicsemi.android.common.test.di
 
 import android.content.Context
