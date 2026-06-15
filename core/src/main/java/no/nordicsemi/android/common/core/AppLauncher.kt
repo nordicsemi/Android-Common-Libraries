@@ -36,8 +36,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
+import androidx.core.net.toUri
 
 /**
  * Base link to the Google Play Store.
@@ -71,7 +71,7 @@ object AppLauncher {
     }
 
     private fun openGooglePlay(packageName: String, context: Context) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_LINK + packageName))
+        val intent = Intent(Intent.ACTION_VIEW, (GOOGLE_PLAY_LINK + packageName).toUri())
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
@@ -88,7 +88,7 @@ object AppLauncher {
 
     private fun isPackageInstalled(packageName: String, packageManager: PackageManager): Boolean {
         return try {
-            packageManager.getPackageInfoCompat(packageName)
+            val _ = packageManager.getPackageInfoCompat(packageName)
             true
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()

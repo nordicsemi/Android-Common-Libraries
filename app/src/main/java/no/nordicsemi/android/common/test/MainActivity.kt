@@ -276,7 +276,6 @@ private fun Content() {
                                 imageVector = Icons.Default.FilterList,
                                 contentDescription = null,
                                 onClick = {
-                                    @Suppress("AssignedValueIsNeverRead")
                                     isFilterOpen = true
                                 }
                             )
