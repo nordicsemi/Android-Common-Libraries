@@ -47,10 +47,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import no.nordicsemi.android.common.permissions.notification.viewmodel.NotificationPermissionViewModel
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 internal fun NotificationPermissionRequestView(
     content: @Composable (Boolean?) -> Unit
