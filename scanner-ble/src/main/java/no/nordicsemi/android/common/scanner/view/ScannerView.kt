@@ -31,7 +31,6 @@
 
 package no.nordicsemi.android.common.scanner.view
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,7 +40,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -82,10 +80,8 @@ import no.nordicsemi.kotlin.ble.client.android.preview.PreviewPeripheral
 import no.nordicsemi.kotlin.ble.core.Phy
 import no.nordicsemi.kotlin.ble.core.PrimaryPhy
 import kotlin.time.Duration
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScannerView(
     onScanResultSelected: (ScanResult) -> Unit,
@@ -207,7 +203,6 @@ internal fun LazyListScope.DeviceListItems(
     }
 }
 
-@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun DeviceListItem(
     result: ScanResult,
@@ -234,7 +229,6 @@ fun DeviceListItem(
     )
 }
 
-@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun DeviceListItem(
     iconPainter: Painter?,
@@ -264,7 +258,6 @@ fun DeviceListItem(
     )
 }
 
-@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun DeviceListItem(
     iconPainter: Painter?,

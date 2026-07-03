@@ -59,12 +59,10 @@ import no.nordicsemi.android.common.test.LocalScanningState
 import no.nordicsemi.android.common.test.R
 import no.nordicsemi.kotlin.ble.client.android.ScanResult
 import no.nordicsemi.kotlin.ble.core.util.fromShortUuid
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 val ScannerDestinationId = createDestination<Unit, ScanResult>("ble-scanner")
 
-@OptIn(ExperimentalUuidApi::class)
 val ScannerDestination = defineDestination(ScannerDestinationId) {
     val navigationVM = hiltViewModel<SimpleNavigationViewModel>()
 

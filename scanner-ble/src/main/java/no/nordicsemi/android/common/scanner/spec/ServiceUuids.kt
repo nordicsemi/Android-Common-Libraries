@@ -29,14 +29,11 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@file:OptIn(ExperimentalUuidApi::class)
-
 package no.nordicsemi.android.common.scanner.spec
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import no.nordicsemi.android.common.scanner.R
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 internal val HTS_SERVICE_UUID= Uuid.parse("00001809-0000-1000-8000-00805f9b34fb")
@@ -64,47 +61,44 @@ internal val MESH_PROXY_SOLICITATION_SERVICE_UUID = Uuid.parse("00001829-0000-10
 object ServiceUuids {
 
     @Composable
-    @OptIn(ExperimentalUuidApi::class)
-    fun getServiceInfo(uuid: Uuid): ServiceNameWithIcon? {
-        return when (uuid) {
-            HTS_SERVICE_UUID -> ServiceNameWithIcon("Health Thermometer", R.drawable.baseline_thermostat_24)
-            BPS_SERVICE_UUID -> ServiceNameWithIcon("Blood Pressure", R.drawable.baseline_bloodtype_24)
-            CSC_SERVICE_UUID -> ServiceNameWithIcon(
-                "Cycling Speed and Cadence",
-                R.drawable.baseline_directions_bike_24,
-            )
-            CGMS_SERVICE_UUID -> ServiceNameWithIcon(
-                "Continuous Glucose Monitoring",
-                R.drawable.baseline_water_drop_24
-            )
-            DF_SERVICE_UUID -> ServiceNameWithIcon("Direction Finding", R.drawable.baseline_my_location_24)
-            GLS_SERVICE_UUID -> ServiceNameWithIcon("Glucose", R.drawable.baseline_water_drop_24)
-            HRS_SERVICE_UUID -> ServiceNameWithIcon("Heart Rate", R.drawable.baseline_monitor_heart_24)
-            PRX_SERVICE_UUID -> ServiceNameWithIcon("Proximity", R.drawable.baseline_thermostat_24)
-            RSCS_SERVICE_UUID -> ServiceNameWithIcon(
-                "Running Speed and Cadence",
-                R.drawable.baseline_directions_run_24
-            )
+    fun getServiceInfo(uuid: Uuid): ServiceNameWithIcon? = when (uuid) {
+        HTS_SERVICE_UUID -> ServiceNameWithIcon("Health Thermometer", R.drawable.baseline_thermostat_24)
+        BPS_SERVICE_UUID -> ServiceNameWithIcon("Blood Pressure", R.drawable.baseline_bloodtype_24)
+        CSC_SERVICE_UUID -> ServiceNameWithIcon(
+            "Cycling Speed and Cadence",
+            R.drawable.baseline_directions_bike_24,
+        )
+        CGMS_SERVICE_UUID -> ServiceNameWithIcon(
+            "Continuous Glucose Monitoring",
+            R.drawable.baseline_water_drop_24
+        )
+        DF_SERVICE_UUID -> ServiceNameWithIcon("Direction Finding", R.drawable.baseline_my_location_24)
+        GLS_SERVICE_UUID -> ServiceNameWithIcon("Glucose", R.drawable.baseline_water_drop_24)
+        HRS_SERVICE_UUID -> ServiceNameWithIcon("Heart Rate", R.drawable.baseline_monitor_heart_24)
+        PRX_SERVICE_UUID -> ServiceNameWithIcon("Proximity", R.drawable.baseline_thermostat_24)
+        RSCS_SERVICE_UUID -> ServiceNameWithIcon(
+            "Running Speed and Cadence",
+            R.drawable.baseline_directions_run_24
+        )
 
-            UART_SERVICE_UUID -> ServiceNameWithIcon("UART", R.drawable.baseline_sync_alt_24)
-            BATTERY_SERVICE_UUID -> ServiceNameWithIcon("Battery", R.drawable.outline_battery_full_24)
-            THROUGHPUT_SERVICE_UUID -> ServiceNameWithIcon("Throughput", R.drawable.baseline_sync_alt_24)
-            CHANNEL_SOUND_SERVICE_UUID -> ServiceNameWithIcon(
-                "Channel Sounding",
-                R.drawable.baseline_my_location_24
-            )
-            MDS_SERVICE_UUID -> ServiceNameWithIcon(
-                "Monitoring & Diagnostics",
-                R.drawable.ic_memfault_app_logo
-            )
-            LBS_SERVICE_UUID -> ServiceNameWithIcon("LED Button", R.drawable.outline_lightbulb_2_24)
-            QUICK_START_54L_SERVICE_UUID -> ServiceNameWithIcon("Quick Start", R.drawable.ic_quick_start)
-            MESH_PROXY_SERVICE_UUID,
-            MESH_PROXY_SOLICITATION_SERVICE_UUID,
-            MESH_PROVISIONING_SERVICE_UUID -> ServiceNameWithIcon("Mesh", R.drawable.ic_mesh)
+        UART_SERVICE_UUID -> ServiceNameWithIcon("UART", R.drawable.baseline_sync_alt_24)
+        BATTERY_SERVICE_UUID -> ServiceNameWithIcon("Battery", R.drawable.outline_battery_full_24)
+        THROUGHPUT_SERVICE_UUID -> ServiceNameWithIcon("Throughput", R.drawable.baseline_sync_alt_24)
+        CHANNEL_SOUND_SERVICE_UUID -> ServiceNameWithIcon(
+            "Channel Sounding",
+            R.drawable.baseline_my_location_24
+        )
+        MDS_SERVICE_UUID -> ServiceNameWithIcon(
+            "Monitoring & Diagnostics",
+            R.drawable.ic_memfault_app_logo
+        )
+        LBS_SERVICE_UUID -> ServiceNameWithIcon("LED Button", R.drawable.outline_lightbulb_2_24)
+        QUICK_START_54L_SERVICE_UUID -> ServiceNameWithIcon("Quick Start", R.drawable.ic_quick_start)
+        MESH_PROXY_SERVICE_UUID,
+        MESH_PROXY_SOLICITATION_SERVICE_UUID,
+        MESH_PROVISIONING_SERVICE_UUID -> ServiceNameWithIcon("Mesh", R.drawable.ic_mesh)
 
-            else -> null
-        }
+        else -> null
     }
 }
 
