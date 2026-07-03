@@ -4,7 +4,7 @@ A libraries with Nordic's common code for Android apps.
 
 ## Documentation
 
-The latest documentation can be found [here](https://nordicplayground.github.io/Android-Common-Libraries/html/index.html).
+The latest documentation can be found [here](https://nordicsemi.github.io/Android-Common-Libraries/html/index.html).
 
 ## Usage
 

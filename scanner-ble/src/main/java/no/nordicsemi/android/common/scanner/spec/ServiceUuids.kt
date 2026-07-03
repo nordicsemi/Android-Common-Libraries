@@ -58,7 +58,7 @@ internal val MESH_PROXY_SERVICE_UUID = Uuid.parse("00001828-0000-1000-8000-00805
 internal val MESH_PROXY_SOLICITATION_SERVICE_UUID = Uuid.parse("00001829-0000-1000-8000-00805F9B34FB")
 
 // TODO: make a callback which checks the uuid and returns the name and icon for the service.
-object ServiceUuids {
+internal object ServiceUuids {
 
     @Composable
     fun getServiceInfo(uuid: Uuid): ServiceNameWithIcon? = when (uuid) {
@@ -102,7 +102,7 @@ object ServiceUuids {
     }
 }
 
-data class ServiceNameWithIcon(
+internal data class ServiceNameWithIcon(
     val service: String,
     @field:DrawableRes val icon: Int,
 )

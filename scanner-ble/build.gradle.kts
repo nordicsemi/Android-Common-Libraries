@@ -52,6 +52,12 @@ android {
     namespace = "no.nordicsemi.android.common.scanner"
 }
 
+dokka {
+    dokkaSourceSets.configureEach {
+        includes.from("Module.md")
+    }
+}
+
 dependencies {
     implementation(project(":permissions-ble"))
     implementation(project(":ui"))

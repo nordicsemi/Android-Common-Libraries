@@ -1,56 +1,53 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>no.nordicsemi.android.common.theme</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
-    <script>document.documentElement.classList.replace("no-js","js");</script>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-    if (storage == null) {
+      if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (osDarkSchemePreferred === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    } else {
+      } else {
         const savedDarkMode = JSON.parse(storage)
-        if(savedDarkMode === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    }
+      }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
 <link href="../../styles/logo-styles.css" rel="Stylesheet">
-<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
-<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../scripts/prism.js" async></script>
-<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script></head>
 <body>
-    <div class="root">
-    <nav class="navigation theme-dark" id="navigation-wrapper">
-<a class="library-name--link" href="../../index.html">
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../index.html" tabindex="1">
                     Nordic Common Libraries
             </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
-        <div class="library-version" id="library-version">2.4.0
+        <div class="library-version" id="library-version">2.11.0
         </div>
         <div class="navigation-controls">
-        <div class="filter-section filter-section_loading" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":theme/release">androidJvm</button>
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":theme/release">release</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
-                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
-                    <div class="dropdown--header"><span>Platform filter</span>
-                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
@@ -58,39 +55,41 @@
                             <label class="checkbox">
                                 <input type="checkbox" class="checkbox--input" id=":theme/release" data-filter=":theme/release">
                                 <span class="checkbox--icon"></span>
-                                androidJvm
+                                release
                             </label>
                         </li>
                 </ul>
                 <div class="dropdown--overlay"></div>
             </div>
-        </div>
+        </ul>
             <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
             </button>
             <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
                 API
             </div>
         </div>
-    </nav>
-        <div id="container">
-            <div class="sidebar" id="leftColumn">
-                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
-                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
-                        <div class="dropdown--header">
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
                             <span>
                                     Nordic Common Libraries
                             </span>
-                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
-                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
-                            </button>
-                        </div>
-                        <div class="sidebar--inner" id="sideMenu"></div>
-                    </ul>
-                    <div class="dropdown--overlay"></div>
-                </div>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div id="main">
-<div class="main-content" data-page-type="package" id="content" pageids="theme::no.nordicsemi.android.common.theme////PointingToDeclaration//484302146">
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="theme::no.nordicsemi.android.common.theme////PointingToDeclaration//1495326049">
   <div class="breadcrumbs"><a href="../index.html">theme</a><span class="delimiter">/</span><span class="current">no.nordicsemi.android.common.theme</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
@@ -100,13 +99,13 @@
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
     <div class="tabs-section-body">
       <div data-togglable="TYPE">
-        <h2 class="">Types</h2>
-        <div class="table"><a data-name="-1015237295%2FClasslikes%2F484302146" anchor-label="NordicActivity" id="-1015237295%2FClasslikes%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1015237295%2FClasslikes%2F1495326049" anchor-label="NordicActivity" id="-1015237295%2FClasslikes%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-nordic-activity/index.html"><span>Nordic</span><wbr><span><span>Activity</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1015237295%2FClasslikes%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1015237295%2FClasslikes%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -119,13 +118,13 @@
         </div>
       </div>
       <div data-togglable="PROPERTY">
-        <h2 class="">Properties</h2>
-        <div class="table"><a data-name="248057995%2FProperties%2F484302146" anchor-label="nordicBlue" id="248057995%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="248057995%2FProperties%2F1495326049" anchor-label="nordicBlue" id="248057995%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-blue.html"><span>nordic</span><wbr><span><span>Blue</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="248057995%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="248057995%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -135,12 +134,12 @@
               </div>
             </div>
           </div>
-<a data-name="2086843446%2FProperties%2F484302146" anchor-label="nordicBlueslate" id="2086843446%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="2086843446%2FProperties%2F1495326049" anchor-label="nordicBlueslate" id="2086843446%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-blueslate.html"><span>nordic</span><wbr><span><span>Blueslate</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2086843446%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2086843446%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -150,12 +149,12 @@
               </div>
             </div>
           </div>
-<a data-name="1545972428%2FProperties%2F484302146" anchor-label="nordicDarkGray" id="1545972428%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="1545972428%2FProperties%2F1495326049" anchor-label="nordicDarkGray" id="1545972428%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-dark-gray.html"><span>nordic</span><wbr><span>Dark</span><wbr><span><span>Gray</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1545972428%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1545972428%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -165,12 +164,12 @@
               </div>
             </div>
           </div>
-<a data-name="1680146570%2FProperties%2F484302146" anchor-label="nordicFall" id="1680146570%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="1680146570%2FProperties%2F1495326049" anchor-label="nordicFall" id="1680146570%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-fall.html"><span>nordic</span><wbr><span><span>Fall</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1680146570%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1680146570%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -180,12 +179,12 @@
               </div>
             </div>
           </div>
-<a data-name="1963799519%2FProperties%2F484302146" anchor-label="nordicGrass" id="1963799519%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="1963799519%2FProperties%2F1495326049" anchor-label="nordicGrass" id="1963799519%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-grass.html"><span>nordic</span><wbr><span><span>Grass</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1963799519%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1963799519%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -195,12 +194,12 @@
               </div>
             </div>
           </div>
-<a data-name="212059954%2FProperties%2F484302146" anchor-label="nordicGreen" id="212059954%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="212059954%2FProperties%2F1495326049" anchor-label="nordicGreen" id="212059954%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-green.html"><span>nordic</span><wbr><span><span>Green</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212059954%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212059954%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -210,12 +209,12 @@
               </div>
             </div>
           </div>
-<a data-name="365036790%2FProperties%2F484302146" anchor-label="nordicLake" id="365036790%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="365036790%2FProperties%2F1495326049" anchor-label="nordicLake" id="365036790%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-lake.html"><span>nordic</span><wbr><span><span>Lake</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="365036790%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="365036790%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -225,12 +224,12 @@
               </div>
             </div>
           </div>
-<a data-name="472409692%2FProperties%2F484302146" anchor-label="nordicLightGray" id="472409692%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="472409692%2FProperties%2F1495326049" anchor-label="nordicLightGray" id="472409692%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-light-gray.html"><span>nordic</span><wbr><span>Light</span><wbr><span><span>Gray</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="472409692%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="472409692%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -240,12 +239,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1195741427%2FProperties%2F484302146" anchor-label="nordicMiddleGray" id="-1195741427%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="-1195741427%2FProperties%2F1495326049" anchor-label="nordicMiddleGray" id="-1195741427%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-middle-gray.html"><span>nordic</span><wbr><span>Middle</span><wbr><span><span>Gray</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1195741427%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1195741427%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -255,12 +254,12 @@
               </div>
             </div>
           </div>
-<a data-name="-417693852%2FProperties%2F484302146" anchor-label="nordicRed" id="-417693852%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="-417693852%2FProperties%2F1495326049" anchor-label="nordicRed" id="-417693852%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-red.html"><span>nordic</span><wbr><span><span>Red</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-417693852%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-417693852%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -270,12 +269,12 @@
               </div>
             </div>
           </div>
-<a data-name="1453702356%2FProperties%2F484302146" anchor-label="nordicSky" id="1453702356%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="1453702356%2FProperties%2F1495326049" anchor-label="nordicSky" id="1453702356%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-sky.html"><span>nordic</span><wbr><span><span>Sky</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1453702356%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1453702356%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -285,12 +284,12 @@
               </div>
             </div>
           </div>
-<a data-name="2138690057%2FProperties%2F484302146" anchor-label="nordicSun" id="2138690057%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="2138690057%2FProperties%2F1495326049" anchor-label="nordicSun" id="2138690057%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-sun.html"><span>nordic</span><wbr><span><span>Sun</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2138690057%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2138690057%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -300,12 +299,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1665210538%2FProperties%2F484302146" anchor-label="nordicTypography" id="-1665210538%2FProperties%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+<a data-name="-1665210538%2FProperties%2F1495326049" anchor-label="nordicTypography" id="-1665210538%2FProperties%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="nordic-typography.html"><span>nordic</span><wbr><span><span>Typography</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1665210538%2FProperties%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1665210538%2FProperties%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -318,13 +317,13 @@
         </div>
       </div>
       <div data-togglable="FUNCTION">
-        <h2 class="">Functions</h2>
-        <div class="table"><a data-name="-1227329542%2FFunctions%2F484302146" anchor-label="NordicTheme" id="-1227329542%2FFunctions%2F484302146" data-filterable-set=":theme/release"></a>
-          <div class="table-row" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1227329542%2FFunctions%2F1495326049" anchor-label="NordicTheme" id="-1227329542%2FFunctions%2F1495326049" data-filterable-set=":theme/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":theme/release" data-filterable-set=":theme/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-nordic-theme.html"><span>Nordic</span><wbr><span><span>Theme</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1227329542%2FFunctions%2F484302146"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1227329542%2FFunctions%2F1495326049"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -340,17 +339,21 @@
   </div>
 </div>
     <div class="footer">
-        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>Copyright © 2022 - 2024 Nordic Semiconductor ASA. All Rights Reserved.</span>
-        <span class="pull-right">
-            <span>Generated by </span>
-            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
-                <span>dokka</span>
-            </a>
-        </span>
-    </div>
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>Copyright © 2022 - 2026 Nordic Semiconductor ASA. All Rights Reserved.</div>
+                </div>
             </div>
         </div>
     </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
