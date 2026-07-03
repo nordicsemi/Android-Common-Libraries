@@ -22,6 +22,10 @@ module:permissions-notification
 no.nordicsemi.android.common.permissions.notification
 module:permissions-wifi
 no.nordicsemi.android.common.permissions.wifi
+module:scanner-ble
+no.nordicsemi.android.common.scanner
+no.nordicsemi.android.common.scanner.data
+no.nordicsemi.android.common.scanner.view
 module:theme
 no.nordicsemi.android.common.theme
 module:ui
