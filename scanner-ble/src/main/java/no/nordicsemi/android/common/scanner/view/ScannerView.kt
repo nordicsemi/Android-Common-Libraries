@@ -83,6 +83,7 @@ import no.nordicsemi.kotlin.ble.core.Phy
 import no.nordicsemi.kotlin.ble.core.PrimaryPhy
 import kotlin.time.Duration
 import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -208,17 +209,21 @@ internal fun LazyListScope.DeviceListItems(
 
 @OptIn(ExperimentalUuidApi::class)
 @Composable
-internal fun DeviceListItem(
+fun DeviceListItem(
     result: ScanResult,
-    @DrawableRes peripheralIcon: Int? = result.advertisingData.serviceUuids
-        .firstNotNullOfOrNull { ServiceUuids.getServiceInfo(it)?.icon }
+    customIconBuilder: (Uuid) -> Int? = { null },
+) {
+    val icon: Int = result.advertisingData.serviceUuids
+        .firstNotNullOfOrNull {
+            customIconBuilder(it) ?: ServiceUuids.getServiceInfo(it)?.icon
+        }
         ?: result.advertisingData.meshBeacon?.let { R.drawable.ic_mesh }
         ?: result.advertisingData.meshMessage?.let { R.drawable.ic_mesh }
         ?: result.advertisingData.meshPbAdv?.let { R.drawable.ic_mesh }
-        ?: R.drawable.outline_bluetooth_24,
-) {
+        ?: R.drawable.outline_bluetooth_24
+
     DeviceListItem(
-        iconPainter = peripheralIcon?.let { painterResource(it) },
+        iconPainter = painterResource(icon),
         title = result.advertisingData.name ?: result.peripheral.name
         ?: stringResource(R.string.no_name),
         subtitle = result.peripheral.address,
