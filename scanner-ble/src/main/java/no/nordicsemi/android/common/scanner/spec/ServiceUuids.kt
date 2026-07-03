@@ -55,6 +55,7 @@ internal val CHANNEL_SOUND_SERVICE_UUID = Uuid.parse("0000185B-0000-1000-8000-00
 // Nordic Service UUIDs
 internal val MDS_SERVICE_UUID = Uuid.parse("54220000-f6a5-4007-a371-722f4ebd8436")
 internal val LBS_SERVICE_UUID = Uuid.parse("00001523-1212-EFDE-1523-785FEABCD123")
+internal val QUICK_START_54L_SERVICE_UUID = Uuid.parse("b2007aaa-c203-43a5-8b6f-a7f3d001a1e0")
 internal val MESH_PROVISIONING_SERVICE_UUID = Uuid.parse("00001827-0000-1000-8000-00805F9B34FB")
 internal val MESH_PROXY_SERVICE_UUID = Uuid.parse("00001828-0000-1000-8000-00805F9B34FB")
 internal val MESH_PROXY_SOLICITATION_SERVICE_UUID = Uuid.parse("00001829-0000-1000-8000-00805F9B34FB")
@@ -97,6 +98,7 @@ object ServiceUuids {
                 R.drawable.ic_memfault_app_logo
             )
             LBS_SERVICE_UUID -> ServiceNameWithIcon("LED Button", R.drawable.outline_lightbulb_2_24)
+            QUICK_START_54L_SERVICE_UUID -> ServiceNameWithIcon("Quick Start", R.drawable.ic_quick_start)
             MESH_PROXY_SERVICE_UUID,
             MESH_PROXY_SOLICITATION_SERVICE_UUID,
             MESH_PROVISIONING_SERVICE_UUID -> ServiceNameWithIcon("Mesh", R.drawable.ic_mesh)
