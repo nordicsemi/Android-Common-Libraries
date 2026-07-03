@@ -37,7 +37,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import no.nordicsemi.android.common.scanner.R
 import no.nordicsemi.kotlin.ble.client.android.ScanResult
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 sealed class Filter(
@@ -101,7 +100,6 @@ class OnlyNearby(
  * @param title The title of the filter.
  * @param isInitiallySelected Whether the filter is initially selected, defaults to `false`.
  */
-@OptIn(ExperimentalUuidApi::class)
 class WithServiceUuid(
     uuid: Uuid,
     @DrawableRes icon: Int = R.drawable.baseline_check_24,

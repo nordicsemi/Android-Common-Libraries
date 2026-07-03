@@ -31,7 +31,6 @@
 
 package no.nordicsemi.android.common.scanner.view
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,7 +40,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -82,9 +80,8 @@ import no.nordicsemi.kotlin.ble.client.android.preview.PreviewPeripheral
 import no.nordicsemi.kotlin.ble.core.Phy
 import no.nordicsemi.kotlin.ble.core.PrimaryPhy
 import kotlin.time.Duration
-import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScannerView(
     onScanResultSelected: (ScanResult) -> Unit,
@@ -206,19 +203,22 @@ internal fun LazyListScope.DeviceListItems(
     }
 }
 
-@OptIn(ExperimentalUuidApi::class)
 @Composable
-internal fun DeviceListItem(
+fun DeviceListItem(
     result: ScanResult,
-    @DrawableRes peripheralIcon: Int? = result.advertisingData.serviceUuids
-        .firstNotNullOfOrNull { ServiceUuids.getServiceInfo(it)?.icon }
+    customIconBuilder: (Uuid) -> Int? = { null },
+) {
+    val icon: Int = result.advertisingData.serviceUuids
+        .firstNotNullOfOrNull {
+            customIconBuilder(it) ?: ServiceUuids.getServiceInfo(it)?.icon
+        }
         ?: result.advertisingData.meshBeacon?.let { R.drawable.ic_mesh }
         ?: result.advertisingData.meshMessage?.let { R.drawable.ic_mesh }
         ?: result.advertisingData.meshPbAdv?.let { R.drawable.ic_mesh }
-        ?: R.drawable.outline_bluetooth_24,
-) {
+        ?: R.drawable.outline_bluetooth_24
+
     DeviceListItem(
-        iconPainter = peripheralIcon?.let { painterResource(it) },
+        iconPainter = painterResource(icon),
         title = result.advertisingData.name ?: result.peripheral.name
         ?: stringResource(R.string.no_name),
         subtitle = result.peripheral.address,
@@ -229,7 +229,6 @@ internal fun DeviceListItem(
     )
 }
 
-@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun DeviceListItem(
     iconPainter: Painter?,
@@ -259,7 +258,6 @@ fun DeviceListItem(
     )
 }
 
-@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun DeviceListItem(
     iconPainter: Painter?,
