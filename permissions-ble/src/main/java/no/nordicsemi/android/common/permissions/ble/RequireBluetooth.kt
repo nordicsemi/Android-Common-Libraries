@@ -91,22 +91,19 @@ fun RequireBluetooth(
     val viewModel = hiltViewModel<PermissionViewModel>()
     val environment = viewModel.environment
     val state by environment.bluetoothState.collectAsStateWithLifecycle()
-    val bluetoothAvailable by viewModel.bluetoothPermissionFlow.collectAsStateWithLifecycle()
+    val permissionGranted by viewModel.bluetoothPermissionFlow.collectAsStateWithLifecycle()
 
-    LaunchedEffect(state, bluetoothAvailable) {
+    LaunchedEffect(state, permissionGranted) {
         val bluetoothEnabled = state == Manager.State.POWERED_ON
-        onChanged(bluetoothEnabled && bluetoothAvailable)
+        onChanged(bluetoothEnabled && permissionGranted)
     }
 
-    when (state) {
-        Manager.State.POWERED_ON -> {
-            if (bluetoothAvailable) {
-                content()
-            } else {
-                contentWithoutBluetooth(BlePermissionNotAvailableReason.PERMISSION_REQUIRED)
-            }
-        }
-        Manager.State.UNSUPPORTED -> contentWithoutBluetooth(BlePermissionNotAvailableReason.NOT_AVAILABLE)
+    when  {
+        state == Manager.State.UNSUPPORTED -> contentWithoutBluetooth(BlePermissionNotAvailableReason.NOT_AVAILABLE)
+        // First check the BLUETOOTH_CONNECT permission.
+        // It's required to enable Bluetooth.
+        !permissionGranted -> contentWithoutBluetooth(BlePermissionNotAvailableReason.PERMISSION_REQUIRED)
+        state == Manager.State.POWERED_ON -> content()
         else -> contentWithoutBluetooth(BlePermissionNotAvailableReason.DISABLED)
     }
 }
