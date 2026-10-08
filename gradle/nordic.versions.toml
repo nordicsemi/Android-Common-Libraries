@@ -5,7 +5,7 @@
 
 [versions]
 log = "2.6.0"
-blek = "2.0.0-beta05"
+blek = "2.0.0-beta07"
 
 [libraries]
 log = { group = "no.nordicsemi.android", name = "log", version.ref = "log" }
