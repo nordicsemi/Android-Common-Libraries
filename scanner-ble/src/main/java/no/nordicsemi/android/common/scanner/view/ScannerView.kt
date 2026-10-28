@@ -66,8 +66,10 @@ import no.nordicsemi.android.common.permissions.ble.RequireBluetooth
 import no.nordicsemi.android.common.permissions.ble.RequireLocation
 import no.nordicsemi.android.common.scanner.R
 import no.nordicsemi.android.common.scanner.ScanFilterState
+import no.nordicsemi.android.common.scanner.ScannerState
 import no.nordicsemi.android.common.scanner.data.ScannedPeripheral
 import no.nordicsemi.android.common.scanner.rememberFilterState
+import no.nordicsemi.android.common.scanner.rememberScannerState
 import no.nordicsemi.android.common.scanner.spec.ServiceUuids
 import no.nordicsemi.android.common.scanner.viewmodel.ScannerViewModel
 import no.nordicsemi.android.common.scanner.viewmodel.ScanningState
@@ -88,6 +90,7 @@ fun ScannerView(
     onScanResultSelected: (ScanResult) -> Unit,
     modifier: Modifier = Modifier,
     state: ScanFilterState = rememberFilterState(),
+    scannerState: ScannerState = rememberScannerState(),
     timeout: Duration = Duration.INFINITE,
     onScanningStateChanged: (Boolean) -> Unit = {},
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(8.dp),
@@ -99,7 +102,11 @@ fun ScannerView(
     val viewModel = hiltViewModel<ScannerViewModel>()
     viewModel.setFilterState(state)
 
-    val isScanningChanged by rememberUpdatedState(onScanningStateChanged)
+    val onScanningStateChangedState by rememberUpdatedState(onScanningStateChanged)
+    val isScanningChanged: (Boolean) -> Unit = {
+        scannerState.setScanning(it)
+        onScanningStateChangedState(it)
+    }
 
     RequireBluetooth(
         onChanged = { isEnabled ->
@@ -114,6 +121,9 @@ fun ScannerView(
                 // but there is a flag set in the ViewModel to prevent that.
                 // User needs to pull to refresh to start scanning again.
                 viewModel.initiateScanning(timeout = timeout)
+            }
+            LaunchedEffect(scannerState) {
+                scannerState.refreshRequests.collect { viewModel.reload() }
             }
 
             val pullToRefreshState = rememberPullToRefreshState()

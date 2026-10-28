@@ -65,6 +65,7 @@ import kotlin.time.Duration
  * @param onResultSelected Callback invoked when a device is selected or scanning is cancelled.
  * @param modifier Modifier to be applied to the screen.
  * @param state The state of the scan filter. Use this to set a static filter and dynamic filters.
+ * @param scannerState The state of the scanner. Use this to control the scanner, e.g. to refresh the list.
  * @param title Composable function to display the title of the App Bar.
  * @param timeout The duration after which the scan will stop. Defaults to [Duration.INFINITE].
  * @param verticalArrangement The vertical arrangement of the devices in the list.
@@ -76,6 +77,7 @@ fun ScannerScreen(
     onResultSelected: (ScannerScreenResult) -> Unit,
     modifier: Modifier = Modifier,
     state: ScanFilterState = rememberFilterState(),
+    scannerState: ScannerState = rememberScannerState(),
     timeout: Duration = Duration.INFINITE,
     title: @Composable () -> Unit = { Text(stringResource(id = R.string.scanner_screen)) },
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(8.dp),
@@ -110,6 +112,7 @@ fun ScannerScreen(
             .only(WindowInsetsSides.Horizontal)
         ScannerView(
             state = state,
+            scannerState = scannerState,
             timeout = timeout,
             onScanningStateChanged = { isScanning = it },
             onScanResultSelected = { onResultSelected(DeviceSelected(it)) },

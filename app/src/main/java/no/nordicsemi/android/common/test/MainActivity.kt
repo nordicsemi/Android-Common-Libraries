@@ -53,6 +53,7 @@ import androidx.compose.material.icons.filled.BrokenImage
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.ImageSearch
 import androidx.compose.material.icons.filled.Navigation
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Verified
 import androidx.compose.material3.CircularProgressIndicator
@@ -77,6 +78,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -107,6 +109,8 @@ import no.nordicsemi.android.common.test.simple.SettingsDestination
 import no.nordicsemi.android.common.test.tab.SecondDestinations
 import no.nordicsemi.android.common.test.tab.ThirdDestination
 import no.nordicsemi.android.common.test.tab.ThirdTab
+import no.nordicsemi.android.common.scanner.ScannerState
+import no.nordicsemi.android.common.scanner.rememberScannerState
 import no.nordicsemi.android.common.theme.NordicActivity
 import no.nordicsemi.android.common.theme.NordicTheme
 import no.nordicsemi.android.common.ui.view.AppBarIcon
@@ -121,7 +125,8 @@ import javax.inject.Inject
 
 data class Item(val title: String, val destinationId: DestinationId<Unit, *>, val icon: ImageVector)
 
-val LocalScanningState = compositionLocalOf { mutableStateOf(false) }
+// The state of the scanner, created in setContent and used by both the App Bar and the scanner.
+val LocalScannerState = staticCompositionLocalOf<ScannerState> { error("ScannerState not provided") }
 val LocalFilterState = compositionLocalOf { mutableStateOf(false) }
 
 val Tabs = createSimpleDestination("tabs")
@@ -160,7 +165,11 @@ class MainActivity : NordicActivity() {
                 // For mock environment the `provides` method returns 2 values:
                 // - LocalEnvironment with the environment,
                 // - LocalActivityResultRegistryOwner, that can intercept Bluetooth permission requests.
-                CompositionLocalProvider(values = LocalEnvironmentOwner provides environment) {
+                CompositionLocalProvider(
+                    values = arrayOf(
+                        *(LocalEnvironmentOwner provides environment),
+                        LocalScannerState provides rememberScannerState())
+                ) {
                     Content()
                 }
             }
@@ -177,7 +186,6 @@ private fun Content() {
     val scope = rememberCoroutineScope()
 
     // Note: This state is read in ScannerDestination.kt.
-    @Suppress("VariableNeverRead")
     var isFilterOpen by LocalFilterState.current
 
     ModalNavigationDrawer(
@@ -265,13 +273,20 @@ private fun Content() {
                     actions = {
                         if (navigator.isInHierarchy(ScannerDestinationId)
                                 .collectAsStateWithLifecycle().value) {
-                            if (LocalScanningState.current.value) {
+                            val scannerState = LocalScannerState.current
+                            val isScanning by scannerState.isScanning.collectAsStateWithLifecycle()
+                            if (isScanning) {
                                 CircularProgressIndicator(
                                     modifier = Modifier.padding(4.dp).size(24.dp),
                                     color = MaterialTheme.colorScheme.onPrimary,
                                     strokeWidth = 2.dp,
                                 )
                             }
+                            AppBarIcon(
+                                imageVector = Icons.Default.Refresh,
+                                contentDescription = "Refresh",
+                                onClick = { scannerState.refresh() }
+                            )
                             AppBarIcon(
                                 imageVector = Icons.Default.FilterList,
                                 contentDescription = null,

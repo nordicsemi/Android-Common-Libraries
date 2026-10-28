@@ -55,7 +55,7 @@ import no.nordicsemi.android.common.scanner.rememberFilterState
 import no.nordicsemi.android.common.scanner.view.FilterDialog
 import no.nordicsemi.android.common.scanner.view.ScannerView
 import no.nordicsemi.android.common.test.LocalFilterState
-import no.nordicsemi.android.common.test.LocalScanningState
+import no.nordicsemi.android.common.test.LocalScannerState
 import no.nordicsemi.android.common.test.R
 import no.nordicsemi.kotlin.ble.client.android.ScanResult
 import no.nordicsemi.kotlin.ble.core.util.fromShortUuid
@@ -95,7 +95,6 @@ val ScannerDestination = defineDestination(ScannerDestinationId) {
 //    )
 
     // Or Scanner View and Filter Dialog if you control it from own App Bar.
-    var isScanning by LocalScanningState.current
     var isFilterOpen by LocalFilterState.current
     val state = rememberFilterState(
         // Here's an option to set global filtering based on the advertising data.
@@ -133,9 +132,7 @@ val ScannerDestination = defineDestination(ScannerDestinationId) {
             navigationVM.navigateUpWithResult(ScannerDestinationId, it)
         },
         state = state,
-        onScanningStateChanged = {
-            isScanning = it
-        },
+        scannerState = LocalScannerState.current,
     )
 
     if (isFilterOpen) {
