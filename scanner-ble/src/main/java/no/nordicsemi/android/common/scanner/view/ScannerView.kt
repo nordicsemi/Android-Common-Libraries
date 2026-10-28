@@ -79,6 +79,7 @@ import no.nordicsemi.kotlin.ble.client.android.ScanResult
 import no.nordicsemi.kotlin.ble.client.android.preview.PreviewPeripheral
 import no.nordicsemi.kotlin.ble.core.Phy
 import no.nordicsemi.kotlin.ble.core.PrimaryPhy
+import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.uuid.Uuid
 
@@ -320,7 +321,7 @@ private fun ScannerContentPreview() {
                             txPowerLevel = null,
                             primaryPhy = PrimaryPhy.PHY_LE_1M,
                             secondaryPhy = Phy.PHY_LE_1M,
-                            timestamp = System.currentTimeMillis(),
+                            timestamp = Clock.System.now(),
                         ),
                     ),
                     ScannedPeripheral(
@@ -336,7 +337,7 @@ private fun ScannerContentPreview() {
                             txPowerLevel = null,
                             primaryPhy = PrimaryPhy.PHY_LE_1M,
                             secondaryPhy = Phy.PHY_LE_1M,
-                            timestamp = System.currentTimeMillis(),
+                            timestamp = Clock.System.now(),
                         ),
                     )
                 )
