@@ -165,10 +165,12 @@ class MainActivity : NordicActivity() {
                 // For mock environment the `provides` method returns 2 values:
                 // - LocalEnvironment with the environment,
                 // - LocalActivityResultRegistryOwner, that can intercept Bluetooth permission requests.
-                CompositionLocalProvider(values = LocalEnvironmentOwner provides environment) {
-                    CompositionLocalProvider(LocalScannerState provides rememberScannerState()) {
-                        Content()
-                    }
+                CompositionLocalProvider(
+                    values = arrayOf(
+                        *(LocalEnvironmentOwner provides environment),
+                        LocalScannerState provides rememberScannerState())
+                ) {
+                    Content()
                 }
             }
         }
