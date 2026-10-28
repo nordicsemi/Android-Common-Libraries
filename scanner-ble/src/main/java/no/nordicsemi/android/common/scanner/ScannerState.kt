@@ -36,6 +36,8 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 
 /**
@@ -51,6 +53,18 @@ class ScannerState internal constructor() {
      * Emits a value each time [refresh] was called.
      */
     internal val refreshRequests: Flow<Unit> = refreshChannel.receiveAsFlow()
+
+    /**
+     * Whether the scanner is currently scanning.
+     *
+     * It is `false` when the scanner is not shown, Bluetooth is disabled, or the scan has finished.
+     */
+    val isScanning: StateFlow<Boolean>
+        field = MutableStateFlow(false)
+
+    internal fun setScanning(scanning: Boolean) {
+        isScanning.value = scanning
+    }
 
     /**
      * Clears the list of devices and restarts scanning.

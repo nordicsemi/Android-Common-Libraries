@@ -102,7 +102,11 @@ fun ScannerView(
     val viewModel = hiltViewModel<ScannerViewModel>()
     viewModel.setFilterState(state)
 
-    val isScanningChanged by rememberUpdatedState(onScanningStateChanged)
+    val onScanningStateChangedState by rememberUpdatedState(onScanningStateChanged)
+    val isScanningChanged: (Boolean) -> Unit = {
+        scannerState.setScanning(it)
+        onScanningStateChangedState(it)
+    }
 
     RequireBluetooth(
         onChanged = { isEnabled ->
