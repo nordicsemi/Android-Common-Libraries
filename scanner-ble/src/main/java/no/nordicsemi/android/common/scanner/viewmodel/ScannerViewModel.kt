@@ -52,6 +52,9 @@ import no.nordicsemi.kotlin.ble.core.exception.BluetoothUnavailableException
 import no.nordicsemi.kotlin.ble.core.exception.ManagerClosedException
 import javax.inject.Inject
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.TimeMark
+import kotlin.time.TimeSource
 
 @HiltViewModel
 internal class ScannerViewModel @Inject constructor(
@@ -65,6 +68,14 @@ internal class ScannerViewModel @Inject constructor(
 
     /** The scanning job. */
     private var scanning: Job? = null
+    /**
+     * Incremented each time a scan is started. The completion of a cancelled scan is delivered
+     * asynchronously, possibly after the next scan was started, so each scan makes changes only
+     * as long as it is the latest one.
+     */
+    private var scanId = 0
+    /** When the recent scans were started, used to avoid the scanning frequency limit. */
+    private val scanStarts = ArrayDeque<TimeMark>()
     /** The filters applied to the scan results. */
     private lateinit var filterState: ScanFilterState
     /** All scanner results. */
@@ -97,6 +108,24 @@ internal class ScannerViewModel @Inject constructor(
             return
         }
 
+        // Android silently ignores scans started too often, with no error reported.
+        // Do not start such a scan, as it would look like scanning with no results.
+        val retryIn = timeToNextScan()
+        if (retryIn != null) {
+            _uiState.update {
+                it.copy(
+                    isScanning = false,
+                    scanningState = ScanningState.Error(
+                        "Android limits how often an app can start scanning. " +
+                                "Try again in ${retryIn.inWholeSeconds + 1} seconds"
+                    )
+                )
+            }
+            return
+        }
+        scanStarts.addLast(TimeSource.Monotonic.markNow())
+
+        val id = ++scanId
         scanning = centralManager
             .scan(
                 timeout = timeout,
@@ -168,11 +197,14 @@ internal class ScannerViewModel @Inject constructor(
             }
             // Update the scanning state when the scan is completed.
             .onCompletion {
+                // A scan that was replaced must not affect the new one.
+                if (id != scanId) return@onCompletion
                 _uiState.update { it.copy(isScanning = false) }
                 scanning?.cancel()
                 scanning = null
             }
             .catch { throwable ->
+                if (id != scanId) return@catch
                 _uiState.update {
                     it.copy(
                         isScanning = false,
@@ -184,6 +216,19 @@ internal class ScannerViewModel @Inject constructor(
                 wasScanningStarted = false
             }
             .launchIn(viewModelScope)
+    }
+
+    /**
+     * Returns the time to wait before a scan can be started, or null if it can be started now.
+     *
+     * Android allows to start a scan 5 times in 30 seconds.
+     */
+    private fun timeToNextScan(): Duration? {
+        while (scanStarts.isNotEmpty() && scanStarts.first().elapsedNow() >= SCAN_LIMIT_WINDOW) {
+            scanStarts.removeFirst()
+        }
+        if (scanStarts.size < SCAN_LIMIT_COUNT) return null
+        return SCAN_LIMIT_WINDOW - scanStarts.first().elapsedNow()
     }
 
     /**
@@ -221,6 +266,9 @@ internal class ScannerViewModel @Inject constructor(
         }
     }
 }
+
+private const val SCAN_LIMIT_COUNT = 5
+private val SCAN_LIMIT_WINDOW = 30.seconds
 
 private fun ScanFilterState.passes(peripheral: ScannedPeripheral): Boolean {
     // Check if the peripheral passes all dynamic filters.
