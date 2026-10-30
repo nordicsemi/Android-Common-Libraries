@@ -51,6 +51,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
@@ -100,7 +101,16 @@ fun ScannerView(
     },
 ) {
     val viewModel = hiltViewModel<ScannerViewModel>()
+    // The filter state must be set before scanning starts.
     viewModel.setFilterState(state)
+    // Apply the filters to the already scanned devices whenever the user changes them. This
+    // observes the snapshot state explicitly, instead of relying on the state being read while
+    // composing, which does not trigger a recomposition when no device passed the filters yet.
+    LaunchedEffect(state) {
+        snapshotFlow {
+            state.dynamicFilters.indices.map { state.isFilterSelected(it) } to state.activeSortingOption
+        }.collect { viewModel.setFilterState(state) }
+    }
 
     val onScanningStateChangedState by rememberUpdatedState(onScanningStateChanged)
     val isScanningChanged: (Boolean) -> Unit = {
