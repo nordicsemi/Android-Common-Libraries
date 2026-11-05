@@ -36,6 +36,8 @@ package no.nordicsemi.android.common.ui.view
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -57,6 +59,10 @@ import no.nordicsemi.android.common.ui.R
 /**
  * A section title is a component that displays a title with an icon
  * and optionally a menu.
+ *
+ * The menu does not make the title taller: it takes the height of the icon. A button in the
+ * menu (40-48 dp) is centered on it and may overlap the padding around the title, so the title
+ * has the same space around it with and without the menu.
  *
  * @param painter The painter to be displayed.
  * @param title The title of the section.
@@ -87,7 +93,15 @@ fun SectionTitle(
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.weight(1f)
         )
-        menu?.invoke(this)
+        menu?.let {
+            Row(
+                modifier = Modifier
+                    .height(24.dp) // The height of the icon.
+                    .wrapContentHeight(align = Alignment.CenterVertically, unbounded = true),
+                verticalAlignment = Alignment.CenterVertically,
+                content = it,
+            )
+        }
     }
 }
 
