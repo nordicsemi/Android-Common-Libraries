@@ -1,7 +1,7 @@
 # Releasing Nordic Common Libraries
 
-A release is made by the **Release** GitHub Action. It generates the documentation, creates the tag
-and publishes the libraries to Maven Central. The version of the release is the name of the tag,
+A release is made by the **Release** GitHub Action. It generates the documentation, creates the tag,
+publishes the libraries to Maven Central and creates the GitHub release. The version of the release is the name of the tag,
 e.g. `2.9.4`.
 
 ## How to release
@@ -11,7 +11,7 @@ e.g. `2.9.4`.
 3. Choose `main` in **Use workflow from**.
 4. Enter the **version**, e.g. `2.9.4`, and run the workflow. To try it first, tick **Dry run**.
 
-The workflow runs in five stages. Each one is a job that depends on the previous one, so the graph of
+The workflow runs in six stages. Each one is a job that depends on the previous one, so the graph of
 the run shows which stage failed:
 
 1. **Check.** Checks that it runs on a branch, that the version looks like `2.9.4` or
@@ -22,15 +22,20 @@ the run shows which stage failed:
    by GitHub Pages.
 4. **Tag.** Creates the tag `<version>` on the commit with the documentation, and pushes it.
 5. **Publish.** Builds the tag, publishes all the libraries and releases the staging repository.
+6. **GitHub release.** Creates the GitHub release for the tag, with the notes generated from the pull
+   requests merged since the previous tag. Versions with a suffix, e.g. `2.10.0-beta01`, are marked as
+   pre-releases.
 
 Pushing a tag does not start any workflow. Publishing is a stage of the **Release** workflow.
-After it finished, check that **Publish** succeeded, and create a release on GitHub from the tag.
+After it finished, check that **Publish** and **GitHub release** succeeded, and edit the release notes
+if needed.
 
 ## Dry run
 
 With **Dry run** ticked all the stages run, but nothing leaves the runner: the documentation is not
 committed, the tag is not pushed, and the libraries are only built and signed into the local Maven
-repository of the runner (`./gradlew publishToMavenLocal`). Use it to check the workflow or the
+repository of the runner (`./gradlew publishToMavenLocal`), and the GitHub release is not created (its
+notes are printed in the summary of the run). Use it to check the workflow or the
 secrets before a real release.
 
 ## How the version is set
